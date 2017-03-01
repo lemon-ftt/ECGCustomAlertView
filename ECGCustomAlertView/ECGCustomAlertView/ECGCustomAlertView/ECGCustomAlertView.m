@@ -15,14 +15,14 @@
 //
 
 #import "ECGCustomAlertView.h"
-#import "ECGLoadsAlertViewController.h"
-#import "ECGUIContainTextView.h"
+//#import "ECGLoadsAlertViewController.h"
+//#import "ECGUIContainTextView.h"
 
-@interface ECGCustomAlertView () <ECGLoadsAlertViewControllerDelegate>
-
-@property (nonatomic, weak) ECGLoadsAlertViewController *vc;
-
-@end
+//@interface ECGCustomAlertView () <ECGLoadsAlertViewControllerDelegate>
+//
+//@property (nonatomic, weak) ECGLoadsAlertViewController *vc;
+//
+//@end
 
 @interface jCSingleTon : NSObject //处理window层级的类
 
@@ -151,28 +151,28 @@ buttonType ButtonTitle:(NSString *)buttonTitle Click:(clickHandle)click ButtonTy
 }
 
 + (void)showContainsTextViewWithTitle:(NSString *)title leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle placeholderText:(NSString *)placeholderText tipLabelTitle:(int)tipLabelTextNum click:(rightClick)click {
-    ECGUIContainTextView *myInputView = [[ECGUIContainTextView alloc]initPagesViewWithTitle:title leftButtonTitle:leftButtonTitle rightButtonTitle:rightButtonTitle placeholderText:placeholderText tipLabelTitle:tipLabelTextNum];
-    ECGCustomAlertView *alertView = [[ECGCustomAlertView alloc]initWithCustomView:myInputView dismissWhenTouchedBackground:NO];
-    [alertView show];
-    myInputView.leftBlock=^(NSString *text)
-    {
-        NSLog(@"当前值：%@",text);
-        click(0,text);
-        [alertView dismissWithCompletion:nil];
-    };
-    myInputView.rightBlock=^(NSString *text)
-    {
-//        //可以放在外面处理
-//        if (text.length==0) {
-//            //ToView:weakSelf.alertView这样才会显示出来 否则会被AlertView盖住
-////            [MBProgressHUD showError:@"内容没有输入" ToView:weakSelf.alertView];
-//            return;
-//        }
-        click(1,text);
-        alertView.window.windowLevel = UIWindowLevelStatusBar +1;
-//        [MBProgressHUD showAutoMessage:[NSString stringWithFormat:@"当前内容为:%@",text]];
-        [alertView dismissWithCompletion:nil];
-    };
+//    ECGUIContainTextView *myInputView = [[ECGUIContainTextView alloc]initPagesViewWithTitle:title leftButtonTitle:leftButtonTitle rightButtonTitle:rightButtonTitle placeholderText:placeholderText tipLabelTitle:tipLabelTextNum];
+//    ECGCustomAlertView *alertView = [[ECGCustomAlertView alloc]initWithCustomView:myInputView dismissWhenTouchedBackground:NO];
+//    [alertView show];
+//    myInputView.leftBlock=^(NSString *text)
+//    {
+//        NSLog(@"当前值：%@",text);
+//        click(0,text);
+//        [alertView dismissWithCompletion:nil];
+//    };
+//    myInputView.rightBlock=^(NSString *text)
+//    {
+////        //可以放在外面处理
+////        if (text.length==0) {
+////            //ToView:weakSelf.alertView这样才会显示出来 否则会被AlertView盖住
+//////            [MBProgressHUD showError:@"内容没有输入" ToView:weakSelf.alertView];
+////            return;
+////        }
+//        click(1,text);
+//        alertView.window.windowLevel = UIWindowLevelStatusBar +1;
+////        [MBProgressHUD showAutoMessage:[NSString stringWithFormat:@"当前内容为:%@",text]];
+//        [alertView dismissWithCompletion:nil];
+//    };
     
 }
 
@@ -196,17 +196,17 @@ buttonType ButtonTitle:(NSString *)buttonTitle Click:(clickHandle)click ButtonTy
         previousAlert = [jCSingleTon shareSingleTon].alertStack[index - 1];
     }
     
-    if (previousAlert && previousAlert.vc) {
-        if (previousAlert.isAlertReady) {
-            [previousAlert.vc hideAlertWithCompletion:^{
-                [self showAlertHandle];
-            }];
-        } else {
-            [self showAlertHandle];
-        }
-    } else {
-        [self showAlertHandle];
-    }
+//    if (previousAlert && previousAlert.vc) {
+//        if (previousAlert.isAlertReady) {
+//            [previousAlert.vc hideAlertWithCompletion:^{
+//                [self showAlertHandle];
+//            }];
+//        } else {
+//            [self showAlertHandle];
+//        }
+//    } else {
+//        [self showAlertHandle];
+//    }
 }
 
 - (void)showAlertHandle{
@@ -215,16 +215,16 @@ buttonType ButtonTitle:(NSString *)buttonTitle Click:(clickHandle)click ButtonTy
         [jCSingleTon shareSingleTon].oldKeyWindow = [UIApplication sharedApplication].keyWindow;
     }
     
-    ECGLoadsAlertViewController *vc = [[ECGLoadsAlertViewController alloc] init];
-    vc.delegate = self;
-    vc.alertView = self;
-    self.vc = vc;
-    
-    [jCSingleTon shareSingleTon].backgroundWindow.frame = [UIScreen mainScreen].bounds;
-    [[jCSingleTon shareSingleTon].backgroundWindow makeKeyAndVisible];
-    [jCSingleTon shareSingleTon].backgroundWindow.rootViewController = self.vc;
-    
-    [self.vc showAlert];
+//    ECGLoadsAlertViewController *vc = [[ECGLoadsAlertViewController alloc] init];
+//    vc.delegate = self;
+//    vc.alertView = self;
+//    self.vc = vc;
+//    
+//    [jCSingleTon shareSingleTon].backgroundWindow.frame = [UIScreen mainScreen].bounds;
+//    [[jCSingleTon shareSingleTon].backgroundWindow makeKeyAndVisible];
+//    [jCSingleTon shareSingleTon].backgroundWindow.rootViewController = self.vc;
+//    
+//    [self.vc showAlert];
 }
 
 - (void)coverViewTouched{
@@ -249,19 +249,19 @@ buttonType ButtonTitle:(NSString *)buttonTitle Click:(clickHandle)click ButtonTy
 }
 
 - (void)dismissAlertWithCompletion:(void(^)(void))completion{
-    [self.vc hideAlertWithCompletion:^{
-        [self stackHandle];
-        
-        if (completion) {
-            completion();
-        }
-        
-        NSInteger count = [jCSingleTon shareSingleTon].alertStack.count;
-        if (count > 0) {
-            ECGCustomAlertView *lastAlert = [jCSingleTon shareSingleTon].alertStack.lastObject;
-            [lastAlert showAlert];
-        }
-    }];
+//    [self.vc hideAlertWithCompletion:^{
+//        [self stackHandle];
+//        
+//        if (completion) {
+//            completion();
+//        }
+//        
+//        NSInteger count = [jCSingleTon shareSingleTon].alertStack.count;
+//        if (count > 0) {
+//            ECGCustomAlertView *lastAlert = [jCSingleTon shareSingleTon].alertStack.lastObject;
+//            [lastAlert showAlert];
+//        }
+//    }];
 }
 
 - (void)stackHandle{
